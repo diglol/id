@@ -1,0 +1,83 @@
+name: release
+
+on:
+  push:
+    tags:
+      - '**'
+
+env:
+  GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -Dorg.gradle.daemon=false -Dkotlin.incremental=false"
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest ]
+        arch: [ amd64 ]
+        cmake-arch: [ x86_64 ]
+        include:
+          - os: macOS-latest
+            arch: x86_64
+            cmake-arch: x86_64
+          - os: macOS-latest
+            arch: aarch64
+            cmake-arch: arm64
+          - os: windows-latest
+            arch: x86_64
+            cmake-arch: x86_64
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: gradle/wrapper-validation-action@v1
+      - uses: actions/setup-java@v3.4.1
+        with:
+          distribution: 'zulu'
+          java-version: 18
+
+      - run: ./gradlew build --stacktrace
+        if: matrix.arch == 'amd64' || matrix.arch == 'x86_64'
+
+  publish:
+    runs-on: macos-latest
+    needs:
+      - build
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: gradle/wrapper-validation-action@v1
+      - uses: actions/setup-java@v3.4.0
+        with:
+          distribution: 'zulu'
+          java-version: 18
+
+      - run: ./gradlew assemble dokkaHtml
+
+      - run: ./gradlew publish
+        if: ${{ startsWith(github.ref, 'refs/tags/') && github.repository == 'diglol/id' }}
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ARTIFACT_SIGNING_PRIVATE_KEY }}
+
+      - uses: ffurrer2/extract-release-notes@v1
+        id: release_notes
+
+      - uses: softprops/action-gh-release@v1
+        with:
+          body: ${{ steps.release_notes.outputs.release_notes }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy docs
+        if: ${{ startsWith(github.ref, 'refs/tags/') && github.repository == 'diglol/id' }}
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: site
+          FOLDER: id/build/dokka/html
+          TARGET_FOLDER: docs/0.x/
+          CLEAN: true
+
