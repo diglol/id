@@ -1,0 +1,31 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:diglol.id.serializer////PointingToDeclaration/id/diglol.id.serializer/index.html
+$dokka.location:diglol.id.serializer/IdSerializer///PointingToDeclaration/id/diglol.id.serializer/-id-serializer/index.html
+$dokka.location:diglol.id.serializer/IdSerializer/descriptor/#/PointingToDeclaration/id/diglol.id.serializer/-id-serializer/descriptor.html
+$dokka.location:diglol.id.serializer/IdSerializer/deserialize/#kotlinx.serialization.encoding.Decoder/PointingToDeclaration/id/diglol.id.serializer/-id-serializer/deserialize.html
+$dokka.location:diglol.id.serializer/IdSerializer/serialize/#kotlinx.serialization.encoding.Encoder#diglol.id.Id/PointingToDeclaration/id/diglol.id.serializer/-id-serializer/serialize.html
+$dokka.location:diglol.id////PointingToDeclaration/id/diglol.id/index.html
+$dokka.location:diglol.id//decodeToId/kotlin.String#/PointingToDeclaration/id/diglol.id/decode-to-id.html
+$dokka.location:diglol.id//toId/kotlin.ByteArray#/PointingToDeclaration/id/diglol.id/to-id.html
+$dokka.location:diglol.id/Id.Companion///PointingToDeclaration/id/diglol.id/-id/-companion/index.html
+$dokka.location:diglol.id/Id.Companion/empty/#/PointingToDeclaration/id/diglol.id/-id/-companion/empty.html
+$dokka.location:diglol.id/Id.Companion/fromBytes/#kotlin.ByteArray/PointingToDeclaration/id/diglol.id/-id/-companion/from-bytes.html
+$dokka.location:diglol.id/Id.Companion/fromString/#kotlin.String/PointingToDeclaration/id/diglol.id/-id/-companion/from-string.html
+$dokka.location:diglol.id/Id.Companion/generate/#kotlin.Long/PointingToDeclaration/id/diglol.id/-id/-companion/generate.html
+$dokka.location:diglol.id/Id.Companion/machine/#/PointingToDeclaration/id/diglol.id/-id/-companion/machine.html
+$dokka.location:diglol.id/Id///PointingToDeclaration/id/diglol.id/-id/index.html
+$dokka.location:diglol.id/Id/bytes/#/PointingToDeclaration/id/diglol.id/-id/bytes.html
+$dokka.location:diglol.id/Id/compareTo/#diglol.id.Id/PointingToDeclaration/id/diglol.id/-id/compare-to.html
+$dokka.location:diglol.id/Id/counter/#/PointingToDeclaration/id/diglol.id/-id/counter.html
+$dokka.location:diglol.id/Id/equals/#kotlin.Any?/PointingToDeclaration/id/diglol.id/-id/equals.html
+$dokka.location:diglol.id/Id/hashCode/#/PointingToDeclaration/id/diglol.id/-id/hash-code.html
+$dokka.location:diglol.id/Id/isEmpty/#/PointingToDeclaration/id/diglol.id/-id/is-empty.html
+$dokka.location:diglol.id/Id/isNotEmpty/#/PointingToDeclaration/id/diglol.id/-id/is-not-empty.html
+$dokka.location:diglol.id/Id/machine/#/PointingToDeclaration/id/diglol.id/-id/machine.html
+$dokka.location:diglol.id/Id/pid/#/PointingToDeclaration/id/diglol.id/-id/pid.html
+$dokka.location:diglol.id/Id/time/#/PointingToDeclaration/id/diglol.id/-id/time.html
+$dokka.location:diglol.id/Id/toString/#/PointingToDeclaration/id/diglol.id/-id/to-string.html
+diglol.id
+diglol.id.serializer
+
