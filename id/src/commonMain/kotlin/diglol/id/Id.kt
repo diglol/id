@@ -63,12 +63,15 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
     private const val encodedSize = 21
     private const val rawSize = 13
     private val pid: Int = readPid()
-    private lateinit var _machine: ByteArray
+    private var _machine: ByteArray? = null
     var machine: ByteArray
       // Private Getter TODO https://youtrack.jetbrains.com/issue/KT-3110
-      get() = if (::_machine.isInitialized) _machine else nextBytes(3)
+      get() = _machine ?: (nextBytes(3)).also { _machine = it }
       set(value) {
-        if (!::_machine.isInitialized) {
+        if (value.size < 3) {
+          throw Error("The machine size in bytes must be >= 3")
+        }
+        if (_machine == null) {
           this._machine = value
         }
       }
@@ -173,6 +176,7 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
       raw[2] = (epochSeconds shr 16).toByte()
       raw[3] = (epochSeconds shr 8).toByte()
       raw[4] = epochSeconds.toByte()
+      val machine = machine
       raw[5] = machine[0]
       raw[6] = machine[1]
       raw[7] = machine[2]
