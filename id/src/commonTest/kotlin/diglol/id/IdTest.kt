@@ -5,16 +5,27 @@ import diglol.id.internal.epochSeconds
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
+import kotlin.test.assertFails
+import kotlin.test.assertFalse
 
 class IdTest {
 
   @Test
   fun generate() {
-    Id.machine = nextBytes(3)
+    assertContentEquals(Id.generate().machine, Id.generate().machine)
+    assertEquals(Id.generate().pid, Id.generate().pid)
+
+    assertFails {
+      Id.machine = nextBytes(2)
+    }
+
+    val machine = nextBytes(3)
+    Id.machine = machine
+    assertFalse(machine.contentEquals(Id.machine))
+
     val epochSeconds = epochSeconds()
     val id = Id.generate(epochSeconds)
     assertEquals(epochSeconds, id.time)
-    assertContentEquals(Id.machine, id.machine)
   }
 
   @Test
