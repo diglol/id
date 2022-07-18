@@ -16,11 +16,20 @@ import kotlinx.benchmark.State
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(BenchmarkTimeUnit.MICROSECONDS)
 class IdBenchmark {
+  lateinit var idString: String
+
   @Setup
   fun setup() {
     Id.machine = nextBytes(3)
+    idString = Id.generate().toString()
   }
 
   @Benchmark
   fun generate() = Id.generate()
+
+  @Benchmark
+  fun generateToString() = Id.generate().toString()
+
+  @Benchmark
+  fun fromString() = Id.fromString(idString)
 }
