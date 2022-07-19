@@ -1,9 +1,6 @@
 package diglol.id
 
 import diglol.crypto.random.nextBytes
-import diglol.id.internal.counter
-import diglol.id.internal.epochSeconds
-import diglol.id.internal.readPid
 import diglol.id.serializer.IdSerializer
 import kotlin.native.concurrent.ThreadLocal
 import kotlinx.serialization.Serializable

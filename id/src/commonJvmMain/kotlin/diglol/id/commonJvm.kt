@@ -1,4 +1,4 @@
-package diglol.id.internal
+package diglol.id
 
 import diglol.crypto.random.nextInt
 import java.time.Instant
@@ -6,6 +6,6 @@ import java.util.concurrent.atomic.AtomicInteger
 
 private val nextCounter: AtomicInteger = AtomicInteger(nextInt())
 
-actual fun epochSeconds(): Long = Instant.now().epochSecond
+internal actual fun epochSeconds(): Long = Instant.now().epochSecond
 
-actual fun counter(): Int = nextCounter.getAndIncrement()
+internal actual fun counter(): Int = nextCounter.getAndIncrement()

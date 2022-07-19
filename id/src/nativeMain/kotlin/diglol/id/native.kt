@@ -1,4 +1,4 @@
-package diglol.id.internal
+package diglol.id
 
 import diglol.crypto.random.nextInt
 import kotlin.native.concurrent.AtomicInt
@@ -13,7 +13,7 @@ import platform.posix.timespec
 
 private val nextCounter = AtomicInt(nextInt(Int.MAX_VALUE))
 
-actual fun epochSeconds(): Long {
+internal actual fun epochSeconds(): Long {
   memScoped {
     val current = alloc<timespec>()
     clock_gettime(CLOCK_REALTIME.convert(), current.ptr)
@@ -21,7 +21,7 @@ actual fun epochSeconds(): Long {
   }
 }
 
-actual fun readPid(): Int = getpid()
+internal actual fun readPid(): Int = getpid()
 
-actual fun counter(): Int = nextCounter.addAndGet(1)
+internal actual fun counter(): Int = nextCounter.addAndGet(1)
 
