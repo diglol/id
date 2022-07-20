@@ -1,7 +1,6 @@
 package diglol.id
 
 import diglol.crypto.random.nextBytes
-import diglol.id.internal.epochSeconds
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
