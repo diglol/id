@@ -2,22 +2,21 @@
 compileSdk = "31"
 minSdk = "21"
 targetSdk = "31"
-kotlin = "1.6.21"
-kotlinx-serialization = "1.3.3"
-benchmark = "0.4.3"
+kotlin = "1.7.10"
+kotlinx-serialization = "1.4.0"
+benchmark = "0.4.4"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
-android-gradle-plugin = { module = "com.android.tools.build:gradle", version = "7.0.2" }
-androidx-core-ktx = { module = "androidx.core:core-ktx", version = "1.6.0" }
-androidx-test-runner = { module = "androidx.test:runner", version = "1.2.0" }
+android-gradle-plugin = { module = "com.android.tools.build:gradle", version = "7.1.2" }
+androidx-test-runner = { module = "androidx.test:runner", version = "1.4.0" }
 dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "kotlin" }
-mavenPublish-gradle-plugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version = "0.20.0" }
+mavenPublish-gradle-plugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version = "0.21.0" }
 benchmark-runtime = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-runtime", version.ref = "benchmark" }
 benchmark-gradle-plugin = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-plugin", version.ref = "benchmark" }
-jmh-core = { module = "org.openjdk.jmh:jmh-core", version = "1.22" }
+jmh-core = { module = "org.openjdk.jmh:jmh-core", version = "1.26" }
 diglol-crypto-random = { module = "com.diglol.crypto:random", version = "0.1.1" }
 junit = { module = "junit:junit", version = "4.13.2" }
