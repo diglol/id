@@ -5,6 +5,8 @@ package diglol.id.samples
 import diglol.id.Id
 
 fun main() {
-  val deviceId = Id.generate()
-  println(deviceId)
+  DeviceId.load(".diglol") // Init load
+  println(DeviceId.get())
+
+  println(Id.generate())
 }
