@@ -56,6 +56,19 @@ subprojects {
       exceptionFormat = TestExceptionFormat.FULL
     }
   }
+
+  tasks.withType<AbstractArchiveTask>().configureEach {
+    isPreserveFileTimestamps = false
+    isReproducibleFileOrder = true
+  }
+
+  normalization {
+    runtimeClasspath {
+      metaInf {
+        ignoreAttribute("Bnd-LastModified")
+      }
+    }
+  }
 }
 
 allprojects {
