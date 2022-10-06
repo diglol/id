@@ -22,15 +22,15 @@ class IdBenchmark {
   @Setup
   fun setup() {
     Id.machine = nextBytes(3)
-    idString = Id.generate().toString()
+    idString = Id.generate().encodeToString()
   }
 
   @Benchmark
   fun generate() = Id.generate()
 
   @Benchmark
-  fun generateToString() = Id.generate().toString()
+  fun generateToString() = Id.generate().encodeToString()
 
   @Benchmark
-  fun decodeToId() = idString.decodeToId()
+  fun stringDecodeToId() = idString.decodeToId()
 }

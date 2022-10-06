@@ -37,7 +37,7 @@ class IdTest {
       0x86.toByte(), 0xe4.toByte(), 0x28, 0x41, 0x2d, 0xc9.toByte()
     )
     val id = bytes.toId()
-    assertEquals(id.toString(), "016ohoarc3q8dp1884msi")
+    assertEquals(id.encodeToString(), "016ohoarc3q8dp1884msi")
   }
 
   @Test

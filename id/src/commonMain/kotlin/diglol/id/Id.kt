@@ -31,7 +31,9 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
 
   fun isNotEmpty() = this != empty
 
-  override fun toString(): String = encode(raw).decodeToString()
+  fun encodeToString() = encode(raw).decodeToString()
+
+  override fun toString(): String = encodeToString()
 
   override fun compareTo(other: Id): Int {
     for (i in 0 until rawSize) {
