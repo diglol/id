@@ -1,6 +1,8 @@
 package diglol.id
 
 import diglol.crypto.random.nextBytes
+import diglol.id.Id.Companion.decodeToId
+import diglol.id.Id.Companion.toId
 import diglol.id.serializer.IdSerializer
 import kotlin.native.concurrent.ThreadLocal
 import kotlinx.serialization.Serializable
@@ -29,7 +31,9 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
 
   fun isNotEmpty() = this != empty
 
-  override fun toString(): String = encode(raw).decodeToString()
+  fun encodeToString() = encode(raw).decodeToString()
+
+  override fun toString(): String = encodeToString()
 
   override fun compareTo(other: Id): Int {
     for (i in 0 until rawSize) {
@@ -187,14 +191,32 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
 
     fun generate(epochSeconds: Long = epochSeconds()): Id = Id(generateRaw(epochSeconds))
 
-    fun fromBytes(src: ByteArray): Id = if (src.size != rawSize) empty else Id(src)
-
-    fun fromString(src: String): Id = if (src.length != encodedSize) empty else decode(
-      src.encodeToByteArray()
+    @Deprecated(
+      message = "Replaced with toId method",
+      replaceWith = ReplaceWith("src.toId()", "diglol.id.Id.Companion.toId"),
     )
+    fun fromBytes(src: ByteArray): Id = src.toId()
+
+    @Deprecated(
+      message = "Replaced with decodeToId method",
+      replaceWith = ReplaceWith("src.decodeToId()", "diglol.id.Id.Companion.decodeToId"),
+    )
+    fun fromString(src: String): Id = src.decodeToId()
+
+    fun ByteArray.toId() = if (size != rawSize) empty else Id(this)
+
+    fun String.decodeToId() = if (length != encodedSize) empty else decode(encodeToByteArray())
   }
 }
 
-fun ByteArray.toId() = Id.fromBytes(this)
+@Deprecated(
+  message = "Moved to Id companion object",
+  replaceWith = ReplaceWith("this.toId()", "diglol.id.Id.Companion.toId"),
+)
+fun ByteArray.toId(): Id = this.toId()
 
-fun String.decodeToId() = Id.fromString(this)
+@Deprecated(
+  message = "Moved to Id companion object",
+  replaceWith = ReplaceWith("this.decodeToId()", "diglol.id.Id.Companion.decodeToId"),
+)
+fun String.decodeToId(): Id = this.decodeToId()

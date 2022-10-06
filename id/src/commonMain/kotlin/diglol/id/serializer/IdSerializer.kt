@@ -1,7 +1,7 @@
 package diglol.id.serializer
 
 import diglol.id.Id
-import diglol.id.decodeToId
+import diglol.id.Id.Companion.decodeToId
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.buildClassSerialDescriptor

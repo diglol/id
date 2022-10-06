@@ -1,7 +1,7 @@
 package diglol.id.samples
 
 import diglol.id.Id
-import diglol.id.toId
+import diglol.id.Id.Companion.toId
 import java.io.IOException
 import java.nio.file.Path
 import kotlin.io.path.Path
