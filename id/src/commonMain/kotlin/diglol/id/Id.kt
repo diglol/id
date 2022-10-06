@@ -189,15 +189,21 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
 
     fun generate(epochSeconds: Long = epochSeconds()): Id = Id(generateRaw(epochSeconds))
 
-    fun fromBytes(src: ByteArray): Id = if (src.size != rawSize) empty else Id(src)
-
-    fun fromString(src: String): Id = if (src.length != encodedSize) empty else decode(
-      src.encodeToByteArray()
+    @Deprecated(
+      message = "Replaced with toId method",
+      replaceWith = ReplaceWith("src.toId()", "diglol.id.Id.Companion.toId"),
     )
+    fun fromBytes(src: ByteArray): Id = src.toId()
 
-    fun ByteArray.toId() = fromBytes(this)
+    @Deprecated(
+      message = "Replaced with decodeToId method",
+      replaceWith = ReplaceWith("src.decodeToId()", "diglol.id.Id.Companion.decodeToId"),
+    )
+    fun fromString(src: String): Id = src.decodeToId()
 
-    fun String.decodeToId() = fromString(this)
+    fun ByteArray.toId() = if (size != rawSize) empty else Id(this)
+
+    fun String.decodeToId() = if (length != encodedSize) empty else decode(encodeToByteArray())
   }
 }
 

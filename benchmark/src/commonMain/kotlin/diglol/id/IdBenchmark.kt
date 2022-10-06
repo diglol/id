@@ -1,6 +1,7 @@
 package diglol.id
 
 import diglol.crypto.random.nextBytes
+import diglol.id.Id.Companion.decodeToId
 import kotlinx.benchmark.Benchmark
 import kotlinx.benchmark.BenchmarkMode
 import kotlinx.benchmark.BenchmarkTimeUnit
@@ -31,5 +32,5 @@ class IdBenchmark {
   fun generateToString() = Id.generate().toString()
 
   @Benchmark
-  fun fromString() = Id.fromString(idString)
+  fun decodeToId() = idString.decodeToId()
 }

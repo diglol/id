@@ -1,6 +1,8 @@
 package diglol.id
 
 import diglol.crypto.random.nextBytes
+import diglol.id.Id.Companion.decodeToId
+import diglol.id.Id.Companion.toId
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
@@ -28,19 +30,19 @@ class IdTest {
   }
 
   @Test
-  fun fromBytes() {
+  fun toId() {
     val bytes = byteArrayOf(
       0x00, 0x4d,
       0x88.toByte(), 0xe1.toByte(), 0x5b, 0x60, 0xf4.toByte(),
       0x86.toByte(), 0xe4.toByte(), 0x28, 0x41, 0x2d, 0xc9.toByte()
     )
-    val id = Id.fromBytes(bytes)
+    val id = bytes.toId()
     assertEquals(id.toString(), "016ohoarc3q8dp1884msi")
   }
 
   @Test
-  fun fromString() {
-    val id = Id.fromString("016ohoarc3q8dp1884msi")
+  fun decodeToId() {
+    val id = "016ohoarc3q8dp1884msi".decodeToId()
     val bytes = byteArrayOf(
       0x00, 0x4d,
       0x88.toByte(), 0xe1.toByte(), 0x5b, 0x60, 0xf4.toByte(),
