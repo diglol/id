@@ -7,6 +7,7 @@ import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
+import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
 class IdTest {
@@ -38,6 +39,13 @@ class IdTest {
     val epochSeconds = epochSeconds()
     val id = Id.generate(epochSeconds)
     assertEquals(epochSeconds, id.time)
+  }
+
+  @Test
+  fun padding() {
+    val id1 = "016ohoarc3q8dp1884ms1".decodeToId() // invalid
+    val id2 = "016ohoarc3q8dp1884ms0".decodeToId()
+    assertNotEquals(id1, id2)
   }
 
   @Test
