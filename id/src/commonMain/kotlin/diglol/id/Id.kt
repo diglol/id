@@ -140,6 +140,9 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
       }
       val raw = ByteArray(rawSize)
       raw[12] = ((decode[srcInts[19]] shl 4) or (decode[srcInts[20]] shr 1)).toByte()
+      if (encode[(raw[12].toInt() and 0xff shl 1) and 0x1f] != src[20]) {
+        return empty
+      }
       raw[11] =
         ((decode[srcInts[17]] shl 6) or (decode[srcInts[18]] shl 1) or (decode[srcInts[19]] shr 4)).toByte()
       raw[10] = ((decode[srcInts[16]] shl 3) or (decode[srcInts[17]] shr 2)).toByte()
@@ -157,16 +160,7 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
       raw[1] =
         ((decode[srcInts[1]] shl 6) or (decode[srcInts[2]] shl 1) or (decode[srcInts[3]] shr 4)).toByte()
       raw[0] = ((decode[srcInts[0]] shl 3) or (decode[srcInts[1]] shr 2)).toByte()
-
-      // check
-      val checkRawInts = raw.copyOfRange(10, 13).map { v -> v.toInt() and 0xff } // big endian
-      val check = byteArrayOf(
-        encode[(checkRawInts[1] shr 6) and 0x1f or (checkRawInts[0] shl 2) and 0x1f],
-        encode[(checkRawInts[1] shr 1) and 0x1f],
-        encode[(checkRawInts[2] shr 4) and 0x1f or (checkRawInts[1] shl 4) and 0x1f],
-        encode[(checkRawInts[2] shl 1) and 0x1f]
-      )
-      return if (check.contentEquals(src.copyOfRange(17, 21))) Id(raw) else empty
+      return Id(raw)
     }
 
     private fun generateRaw(epochSeconds: Long): ByteArray {
