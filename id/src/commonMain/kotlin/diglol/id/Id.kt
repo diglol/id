@@ -4,6 +4,11 @@ import diglol.crypto.random.nextBytes
 import diglol.id.Id.Companion.decodeToId
 import diglol.id.Id.Companion.toId
 import diglol.id.serializer.IdSerializer
+import kotlin.jvm.JvmField
+import kotlin.jvm.JvmName
+import kotlin.jvm.JvmOverloads
+import kotlin.jvm.JvmStatic
+import kotlin.native.CName
 import kotlin.native.concurrent.ThreadLocal
 import kotlinx.serialization.Serializable
 
@@ -100,6 +105,8 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
       97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115,
       116, 117, 118 // a-v
     )
+
+    @JvmField
     val empty = Id(ByteArray(rawSize))
 
     private fun encode(raw: ByteArray): ByteArray {
@@ -183,6 +190,8 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
       return raw
     }
 
+    @JvmStatic
+    @JvmOverloads
     fun generate(epochSeconds: Long = epochSeconds()): Id = Id(generateRaw(epochSeconds))
 
     @Deprecated(
@@ -197,8 +206,14 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
     )
     fun fromString(src: String): Id = src.decodeToId()
 
+    @JvmStatic
+    @JvmName("of")
+    @CName("of")
     fun ByteArray.toId() = if (size != rawSize) empty else Id(this)
 
+    @JvmStatic
+    @JvmName("decodeString")
+    @CName("decodeString")
     fun String.decodeToId() = if (length != encodedSize) empty else decode(encodeToByteArray())
   }
 }
