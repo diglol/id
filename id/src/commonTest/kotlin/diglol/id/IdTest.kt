@@ -1,13 +1,14 @@
 package diglol.id
 
 import diglol.crypto.random.nextBytes
+import diglol.crypto.random.nextInt
 import diglol.id.Id.Companion.decodeToId
+import diglol.id.Id.Companion.empty
 import diglol.id.Id.Companion.toId
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
-import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
 class IdTest {
@@ -43,9 +44,21 @@ class IdTest {
 
   @Test
   fun padding() {
-    val id1 = "016ohoarc3q8dp1884ms1".decodeToId() // invalid
-    val id2 = "016ohoarc3q8dp1884ms0".decodeToId()
-    assertNotEquals(id1, id2)
+    val encode = byteArrayOf(
+      48, 49, 50, 51, 52, 53, 54, 55, 56, 57, // 0-9
+      97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115,
+      116, 117, 118 // a-v
+    )
+    repeat(10000) {
+      val id3 = ByteArray(21)
+      id3[20] = 48 // "0"
+      "016ohoarc3q8dp".encodeToByteArray().copyInto(id3, 0, 0) // 016ohoarc3q8dp1884ms0
+      repeat(6) {
+        id3[14 + it] = encode[nextInt(32)]
+      }
+      val id3String = id3.decodeToString()
+      assertEquals(id3String, id3String.decodeToId().encodeToString())
+    }
   }
 
   @Test
@@ -68,6 +81,9 @@ class IdTest {
       0x86.toByte(), 0xe4.toByte(), 0x28, 0x41, 0x2d, 0xc9.toByte()
     )
     assertContentEquals(bytes, id.bytes)
+
+    val expected = "016ohoarc3q8dp1884ms1".decodeToId() // invalid
+    assertEquals(expected, empty)
   }
 
   @Test

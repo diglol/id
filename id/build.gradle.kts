@@ -18,7 +18,13 @@ kotlin {
   jvm()
   js(BOTH) {
     browser()
-    nodejs()
+    nodejs {
+      testTask {
+        useMocha {
+          timeout = "30s"
+        }
+      }
+    }
   }
 
   macosX64()
