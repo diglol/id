@@ -18,7 +18,7 @@ A global Id generator for Kotlin Multiplatform. It modifies the timestamp to 5 b
 ### Add Dependency
 
 ```gradle
-implementation("com.diglol.id:id:0.1.1")
+implementation("com.diglol.id:id:0.2.0")
 ```
 
 ### Code Samples
