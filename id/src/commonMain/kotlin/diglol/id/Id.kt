@@ -1,8 +1,6 @@
 package diglol.id
 
 import diglol.crypto.random.nextBytes
-import diglol.id.Id.Companion.decodeToId
-import diglol.id.Id.Companion.toId
 import diglol.id.serializer.IdSerializer
 import kotlin.jvm.JvmField
 import kotlin.jvm.JvmName
@@ -194,18 +192,6 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
     @JvmOverloads
     fun generate(epochSeconds: Long = epochSeconds()): Id = Id(generateRaw(epochSeconds))
 
-    @Deprecated(
-      message = "Replaced with toId method",
-      replaceWith = ReplaceWith("src.toId()", "diglol.id.Id.Companion.toId"),
-    )
-    fun fromBytes(src: ByteArray): Id = src.toId()
-
-    @Deprecated(
-      message = "Replaced with decodeToId method",
-      replaceWith = ReplaceWith("src.decodeToId()", "diglol.id.Id.Companion.decodeToId"),
-    )
-    fun fromString(src: String): Id = src.decodeToId()
-
     @JvmStatic
     @JvmName("of")
     @CName("of")
@@ -217,15 +203,3 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
     fun String.decodeToId() = if (length != encodedSize) empty else decode(encodeToByteArray())
   }
 }
-
-@Deprecated(
-  message = "Moved to Id companion object",
-  replaceWith = ReplaceWith("this.toId()", "diglol.id.Id.Companion.toId"),
-)
-fun ByteArray.toId(): Id = this.toId()
-
-@Deprecated(
-  message = "Moved to Id companion object",
-  replaceWith = ReplaceWith("this.decodeToId()", "diglol.id.Id.Companion.decodeToId"),
-)
-fun String.decodeToId(): Id = this.decodeToId()
