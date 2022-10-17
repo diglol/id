@@ -15,20 +15,22 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
   val bytes: ByteArray = raw.copyOf()
 
   // big endian
-  val time = raw[0].toLong() and 0xff shl 32 or
-    (raw[1].toLong() and 0xff shl 24) or
-    (raw[2].toLong() and 0xff shl 16) or
-    (raw[3].toLong() and 0xff shl 8) or
-    (raw[4].toLong() and 0xff)
+  val time
+    get() = raw[0].toLong() and 0xff shl 32 or
+      (raw[1].toLong() and 0xff shl 24) or
+      (raw[2].toLong() and 0xff shl 16) or
+      (raw[3].toLong() and 0xff shl 8) or
+      (raw[4].toLong() and 0xff)
 
-  val machine = raw.copyOfRange(5, 8)
-
-  // big endian
-  val pid = (raw[8].toInt() and 0xff shl 8) or (raw[9].toInt() and 0xff)
+  val machine get() = raw.copyOfRange(5, 8)
 
   // big endian
-  val counter = (raw[9].toInt() and 0xff shl 16) or (raw[10].toInt() and 0xff shl 8) or
-    (raw[11].toInt() and 0xff)
+  val pid get() = (raw[8].toInt() and 0xff shl 8) or (raw[9].toInt() and 0xff)
+
+  // big endian
+  val counter
+    get() = (raw[9].toInt() and 0xff shl 16) or (raw[10].toInt() and 0xff shl 8) or
+      (raw[11].toInt() and 0xff)
 
   fun isEmpty() = this == empty
 
