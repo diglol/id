@@ -111,7 +111,9 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
 
     private fun encode(raw: ByteArray): ByteArray {
       val dst = ByteArray(encodedSize)
-      val rawInts = raw.map { v -> v.toInt() and 0xff } // big endian
+      val rawInts = IntArray(rawSize) { index ->
+        raw[index].toInt() and 0xff // big endian
+      }
 
       dst[20] = encode[(rawInts[12] shl 1) and 0x1f]
       dst[19] = encode[(rawInts[12] shr 4) or (rawInts[11] shl 4) and 0x1f]
@@ -138,12 +140,12 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
     }
 
     private fun decode(src: ByteArray): Id {
-      val srcInts = src.map { v ->
-        val vi = v.toInt()
-        if (decode[vi] == -1) {
+      val srcInts = IntArray(encodedSize) { index ->
+        val v = src[index].toInt()
+        if (decode[v] == -1) {
           return empty
         }
-        vi
+        v
       }
       val raw = ByteArray(rawSize)
       raw[12] = ((decode[srcInts[19]] shl 4) or (decode[srcInts[20]] shr 1)).toByte()
