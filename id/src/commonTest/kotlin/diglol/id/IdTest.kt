@@ -9,6 +9,7 @@ import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
+import kotlin.test.assertNotSame
 import kotlin.test.assertTrue
 
 class IdTest {
@@ -40,6 +41,13 @@ class IdTest {
     val epochSeconds = epochSeconds()
     val id = Id.generate(epochSeconds)
     assertEquals(epochSeconds, id.time)
+  }
+
+  @Test
+  fun bytes() {
+    val id = Id.generate()
+    assertContentEquals(id.bytes, id.bytes)
+    assertNotSame(id.bytes, id.bytes)
   }
 
   @Test

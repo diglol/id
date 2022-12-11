@@ -12,7 +12,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable(with = IdSerializer::class)
 class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
-  val bytes: ByteArray = raw.copyOf()
+  val bytes: ByteArray get() = raw.copyOf()
 
   // big endian
   val time
