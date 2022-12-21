@@ -15,7 +15,7 @@ import kotlinx.benchmark.State
 @State(Scope.Benchmark)
 @Measurement(iterations = 5, time = 1)
 @BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(BenchmarkTimeUnit.MICROSECONDS)
+@OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
 class IdBenchmark {
   lateinit var idString: String
 
