@@ -50,21 +50,6 @@ subprojects {
     }
   }
 
-  // TODO Remove when fixed
-  plugins.withId("org.jetbrains.kotlin.multiplatform") {
-    extensions.configure<KotlinMultiplatformExtension> {
-      targets.withType<KotlinNativeTargetWithSimulatorTests> {
-        testRuns["test"].apply {
-          when {
-            targetName.startsWith("watch") -> {
-              deviceId = "Apple Watch Series 5 (44mm)"
-            }
-          }
-        }
-      }
-    }
-  }
-
   tasks.withType(Test::class).configureEach {
     testLogging {
       if (System.getenv("CI") == "true") {
