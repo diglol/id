@@ -12,14 +12,10 @@ allOpen {
 
 kotlin {
   jvm()
-  js("jsIr", IR) {
-    nodejs()
-  }
-  js("js", LEGACY) {
+  js(IR) {
     nodejs()
   }
 
-  macosX64()
   macosArm64()
   linuxX64()
   mingwX64()
@@ -44,16 +40,9 @@ kotlin {
     }
 
     val jsMain by sourceSets.getting
-    val jsIrMain by sourceSets.getting {
-      dependsOn(jsMain)
-    }
 
     val nativeMain by sourceSets.creating {
       dependsOn(commonMain)
-    }
-
-    val darwinMain by sourceSets.creating {
-      dependsOn(nativeMain)
     }
 
     targets.withType<KotlinNativeTarget>().all {
@@ -74,15 +63,14 @@ benchmark {
       advanced("nativeFork", "perBenchmark")
       reportFormat = "text"
     }
+  }
 
-    targets {
-      register("jvm")
-      register("jsIr")
-      register("js")
-      register("macosX64")
-      register("macosArm64")
-      register("linuxX64")
-      register("mingwX64")
-    }
+  targets {
+    register("jvm")
+    register("js")
+    register("macosX64")
+    register("macosArm64")
+    register("linuxX64")
+    register("mingwX64")
   }
 }
