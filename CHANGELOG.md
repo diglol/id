@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+## [0.3.0] - 2023-02-25
+
+### Changed
+
+* Add getter for `Id.bytes` property. (#36)
+* Avoid type casting (#29)
+* Don't decode embedded info when creating `Id` (#28)
+* Remove deprecated methods on `Id` (#27)
+
 ## [0.2.0] - 2022-10-10
 
 ### Changed
