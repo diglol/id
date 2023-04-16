@@ -4,8 +4,6 @@ import com.vanniktech.maven.publish.SonatypeHost
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithSimulatorTests
 
 buildscript {
   repositories {
@@ -16,6 +14,7 @@ buildscript {
   dependencies {
     classpath(libs.android.gradle.plugin)
     classpath(libs.kotlin.gradle.plugin)
+    classpath(libs.kotlin.allopen)
     classpath(libs.kotlin.serialization)
     classpath(libs.dokka.gradle.plugin)
     classpath(libs.mavenPublish.gradle.plugin)
