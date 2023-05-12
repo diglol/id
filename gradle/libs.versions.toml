@@ -2,7 +2,7 @@
 compileSdk = "33"
 minSdk = "21"
 kotlin = "1.8.10"
-kotlinx-serialization = "1.5.0"
+kotlinx-serialization = "1.5.1"
 benchmark = "0.4.7"
 
 [libraries]
