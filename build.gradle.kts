@@ -1,9 +1,15 @@
-import com.android.build.gradle.BaseExtension
+import com.android.build.api.dsl.CommonExtension
+import com.android.build.gradle.AppPlugin
+import com.android.build.gradle.LibraryExtension
+import com.android.build.gradle.LibraryPlugin
+import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import com.vanniktech.maven.publish.SonatypeHost
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 buildscript {
   repositories {
@@ -33,19 +39,50 @@ allprojects {
 }
 
 subprojects {
-  plugins.withId("com.android.library") {
-    extensions.configure<BaseExtension> {
-      lintOptions {
-        textReport = true
-        textOutput("stdout")
-        lintConfig = rootProject.file("lint.xml")
+  fun CommonExtension<*, *, *, *>.applyAndroid() {
+    lint {
+      textReport = true
+      textOutput = file("stdout")
+      lintConfig = rootProject.file("lint.xml")
 
-        isCheckDependencies = true
-        isCheckTestSources = false
-        isExplainIssues = false
+      checkDependencies = true
+      checkTestSources = false
+      explainIssues = false
 
-        isCheckReleaseBuilds = false
-      }
+      checkReleaseBuilds = true
+    }
+
+    compileSdk = 33
+    defaultConfig {
+      minSdk = 21
+    }
+
+    compileOptions {
+      sourceCompatibility = JavaVersion.VERSION_1_8
+      targetCompatibility = JavaVersion.VERSION_1_8
+    }
+  }
+
+  plugins.withType<LibraryPlugin>().configureEach {
+    extensions.configure<LibraryExtension> { applyAndroid() }
+  }
+
+  plugins.withType<AppPlugin>().configureEach {
+    extensions.configure<BaseAppModuleExtension> {
+      applyAndroid()
+      defaultConfig.targetSdk = 33
+    }
+  }
+
+  tasks.withType<JavaCompile>().configureEach {
+    sourceCompatibility = JavaVersion.VERSION_1_8.toString()
+    targetCompatibility = JavaVersion.VERSION_1_8.toString()
+  }
+
+  tasks.withType<KotlinJvmCompile>().configureEach {
+    compilerOptions {
+      jvmTarget.set(JvmTarget.JVM_1_8)
+      freeCompilerArgs.addAll("-Xjvm-default=all")
     }
   }
 
