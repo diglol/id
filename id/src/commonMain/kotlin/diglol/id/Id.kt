@@ -69,7 +69,6 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
     private const val encodedSize = 21
     private const val rawSize = 13
     private val pid: Int = readPid()
-
     private var _machine: ByteArray? = null
     var machine: ByteArray
       // Private Getter TODO https://youtrack.jetbrains.com/issue/KT-3110
