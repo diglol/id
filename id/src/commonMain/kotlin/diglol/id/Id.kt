@@ -69,10 +69,12 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
     private const val encodedSize = 21
     private const val rawSize = 13
     private val pid: Int = readPid()
+
     private var _machine: ByteArray? = null
     var machine: ByteArray
       // Private Getter TODO https://youtrack.jetbrains.com/issue/KT-3110
       get() = _machine ?: (nextBytes(3)).also { _machine = it }
+      @JvmStatic
       set(value) {
         if (value.size < 3) {
           throw Error("The machine size in bytes must be >= 3")
