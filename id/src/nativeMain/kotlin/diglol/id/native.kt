@@ -1,7 +1,9 @@
 package diglol.id
 
 import diglol.crypto.random.nextInt
-import kotlin.native.concurrent.AtomicInt
+import kotlin.concurrent.AtomicInt
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.memScoped
@@ -13,6 +15,7 @@ import platform.posix.timespec
 
 private val nextCounter = AtomicInt(nextInt(Int.MAX_VALUE))
 
+@OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
 internal actual fun epochSeconds(): Long {
   memScoped {
     val current = alloc<timespec>()

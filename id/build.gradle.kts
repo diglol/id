@@ -1,6 +1,7 @@
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
+import org.gradle.api.internal.lambdas.SerializableLambdas.action
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
@@ -12,18 +13,18 @@ plugins {
 }
 
 kotlin {
-  android {
+  androidTarget {
     publishLibraryVariants("release")
   }
   jvm()
   js(IR) {
     browser()
     nodejs {
-      testTask {
+      testTask(action {
         useMocha {
           timeout = "30s"
         }
-      }
+      })
     }
   }
 
