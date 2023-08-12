@@ -39,7 +39,7 @@ allprojects {
 }
 
 subprojects {
-  fun CommonExtension<*, *, *, *>.applyAndroid() {
+  fun CommonExtension<*, *, *, *, *>.applyAndroid() {
     lint {
       textReport = true
       textOutput = file("stdout")
