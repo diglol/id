@@ -1,6 +1,6 @@
 [versions]
 kotlin = "1.9.10"
-kotlinx-serialization = "1.5.1"
+kotlinx-serialization = "1.6.0"
 benchmark = "0.4.9"
 
 [libraries]
@@ -9,7 +9,7 @@ kotlin-allopen = { module = "org.jetbrains.kotlin:kotlin-allopen", version.ref =
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
-android-gradle-plugin = { module = "com.android.tools.build:gradle", version = "8.1.0" }
+android-gradle-plugin = { module = "com.android.tools.build:gradle", version = "8.1.1" }
 androidx-test-runner = { module = "androidx.test:runner", version = "1.5.2" }
 dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version = "1.8.20" }
 mavenPublish-gradle-plugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version = "0.25.3" }
