@@ -7,7 +7,7 @@ import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic
 import kotlin.native.CName
-import kotlin.native.concurrent.ThreadLocal
+import kotlin.experimental.ExperimentalNativeApi
 import kotlinx.serialization.Serializable
 
 @Serializable(with = IdSerializer::class)
@@ -64,7 +64,6 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
 
   override fun hashCode(): Int = raw.contentHashCode()
 
-  @ThreadLocal
   companion object {
     private const val encodedSize = 21
     private const val rawSize = 13
@@ -197,11 +196,15 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
     @JvmOverloads
     fun generate(epochSeconds: Long = epochSeconds()): Id = Id(generateRaw(epochSeconds))
 
+
+    @OptIn(ExperimentalNativeApi::class)
     @JvmStatic
     @JvmName("of")
     @CName("of")
     fun ByteArray.toId() = if (size != rawSize) empty else Id(this)
 
+
+    @OptIn(ExperimentalNativeApi::class)
     @JvmStatic
     @JvmName("decodeString")
     @CName("decodeString")
