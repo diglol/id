@@ -58,6 +58,7 @@ benchmark {
     getByName("main") {
       iterations = 5
       iterationTime = 1
+      iterationTimeUnit = "ms"
       advanced("jvmForks", 1)
       advanced("nativeGCAfterIteration", true)
       advanced("nativeFork", "perBenchmark")
