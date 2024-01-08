@@ -15,6 +15,6 @@ dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", vers
 mavenPublish-gradle-plugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version = "0.27.0" }
 benchmark-runtime = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-runtime", version.ref = "benchmark" }
 benchmark-gradle-plugin = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-plugin", version.ref = "benchmark" }
-jmh-core = { module = "org.openjdk.jmh:jmh-core", version = "1.23" }
+jmh-core = { module = "org.openjdk.jmh:jmh-core", version = "1.37" }
 diglol-crypto-random = { module = "com.diglol.crypto:random", version = "0.1.5" }
 junit = { module = "junit:junit", version = "4.13.2" }
