@@ -1,7 +1,7 @@
 [versions]
 kotlin = "1.9.23"
 kotlinx-serialization = "1.6.3"
-benchmark = "0.4.10"
+benchmark = "0.4.11"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
