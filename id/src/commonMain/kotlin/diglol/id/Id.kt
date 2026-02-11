@@ -29,8 +29,8 @@ class Id private constructor(private val raw: ByteArray) : Comparable<Id> {
 
   // big endian
   val counter
-    get() = (raw[9].toInt() and 0xff shl 16) or (raw[10].toInt() and 0xff shl 8) or
-      (raw[11].toInt() and 0xff)
+    get() = (raw[10].toInt() and 0xff shl 16) or (raw[11].toInt() and 0xff shl 8) or
+      (raw[12].toInt() and 0xff)
 
   fun isEmpty() = this == empty
 
