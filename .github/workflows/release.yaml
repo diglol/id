@@ -30,7 +30,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: gradle/wrapper-validation-action@v2
       - uses: actions/setup-java@v4.1.0
         with:
@@ -46,7 +46,7 @@ jobs:
       - build
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: gradle/wrapper-validation-action@v2
       - uses: actions/setup-java@v4.1.0
         with:
